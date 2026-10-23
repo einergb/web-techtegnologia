@@ -55,3 +55,14 @@ Los cambios de este archivo describen la implementación presente en el reposito
 ### Verificación
 
 - No se pudo ejecutar typecheck en esta sesión: `node` y `npm` no están disponibles en el entorno.
+
+## [0.4.0] - 2026-10-23
+
+### Corregido
+
+- Se cambió ESLint a `FlatCompat` y las configuraciones `next/core-web-vitals` y `next/typescript`, compatibles con Next 15.
+- Se verificó en los manifiestos que `eslint-config-next` resuelve a 15.5.28 junto con Next 15.5.28. `@eslint/eslintrc` 3.3.7 ya está en el lockfile como dependencia de ESLint, por lo que no se añadió otra dependencia.
+
+### Verificación
+
+- No se pudo ejecutar lint ni build en esta sesión: `node`, `npm` y `docker` no están disponibles en el entorno.
