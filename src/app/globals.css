@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+:root {
+  --background: #f4faff;
+  --foreground: #161d20;
+  --primary: #a83128;
+  --secondary: #136a63;
+  --muted: #647174;
+  --line: #e0e8ed;
+  --surface: #ffffff;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--foreground); background: var(--background); font-family: "Hanken Grotesk", sans-serif; }
+h1, h2, h3, .display { font-family: "Outfit", sans-serif; }
+button, input { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #136a6350; outline-offset: 3px; }
+.container-page { width: min(1320px, calc(100% - 48px)); margin-inline: auto; }
+.icon { display: inline-grid; place-items: center; width: 22px; height: 22px; }
+.skeleton { background: linear-gradient(90deg, #e8eff4 25%, #f7fafc 50%, #e8eff4 75%); background-size: 200% 100%; animation: shimmer 1.35s infinite; }
+@keyframes shimmer { to { background-position-x: -200%; } }
+@media (max-width: 640px) { .container-page { width: calc(100% - 32px); } }
