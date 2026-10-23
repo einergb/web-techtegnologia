@@ -45,3 +45,13 @@ Los cambios de este archivo describen la implementación presente en el reposito
 
 - No fue posible correr build, tests, lint, typecheck ni Docker en este entorno, que carece de Node.js/npm y Docker.
 - El proyecto no tenía `package-lock.json`; el Dockerfile solicita `npm ci`, por lo que falta generar y revisar el lockfile antes de construir la imagen.
+
+## [0.3.0] - 2026-10-23
+
+### Corregido
+
+- El proxy construye el cuerpo reenviado en un `ArrayBuffer` explícito para satisfacer el tipo `BodyInit` sin alterar el límite ni la respuesta 413.
+
+### Verificación
+
+- No se pudo ejecutar typecheck en esta sesión: `node` y `npm` no están disponibles en el entorno.

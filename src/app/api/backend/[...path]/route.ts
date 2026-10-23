@@ -19,7 +19,7 @@ function cookieOptions() {
   return { httpOnly: true, secure: (process.env.SITE_URL || "http://localhost:3000").startsWith("https://"), sameSite: "lax" as const, path: "/" };
 }
 
-async function readBoundedBody(request: NextRequest): Promise<Uint8Array | undefined> {
+async function readBoundedBody(request: NextRequest): Promise<Uint8Array<ArrayBuffer> | undefined> {
   if (!request.body) return undefined;
   const reader = request.body.getReader();
   const chunks: Uint8Array[] = [];
@@ -34,7 +34,7 @@ async function readBoundedBody(request: NextRequest): Promise<Uint8Array | undef
     }
     chunks.push(value);
   }
-  const body = new Uint8Array(length);
+  const body = new Uint8Array(new ArrayBuffer(length));
   let offset = 0;
   for (const chunk of chunks) { body.set(chunk, offset); offset += chunk.byteLength; }
   return body;
