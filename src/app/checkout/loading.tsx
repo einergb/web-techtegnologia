@@ -1,0 +1,3 @@
+export default function CheckoutLoading() {
+  return <main aria-label="Cargando checkout" className="mx-auto min-h-[70vh] w-full max-w-7xl flex-grow px-margin-mobile py-8 md:px-margin"><div className="skeleton mb-5 h-4 w-80 rounded"/><div className="mb-6 flex gap-3">{Array.from({ length: 5 }, (_, index) => <div key={index} className="skeleton h-7 flex-1 rounded-full"/>)}</div><div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12"><div className="space-y-6 lg:col-span-7 xl:col-span-8"><div className="skeleton h-72 rounded-lg"/><div className="skeleton h-48 rounded-lg"/></div><div className="skeleton h-[430px] rounded-lg lg:col-span-5 xl:col-span-4"/></div></main>;
+}

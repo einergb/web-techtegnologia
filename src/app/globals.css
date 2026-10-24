@@ -54,13 +54,27 @@
   --color-surface-variant: #dce3e9;
   --font-display: var(--font-outfit);
   --font-headline: var(--font-outfit);
+  --font-headline-lg: var(--font-outfit);
+  --font-headline-lg-mobile: var(--font-outfit);
+  --font-headline-md: var(--font-outfit);
+  --font-headline-sm: var(--font-outfit);
+  --font-display-mobile: var(--font-outfit);
+  --font-price-hero: var(--font-outfit);
+  --font-price-card: var(--font-outfit);
   --font-body: var(--font-hanken);
+  --font-body-lg: var(--font-hanken);
+  --font-body-md: var(--font-hanken);
+  --font-body-sm: var(--font-hanken);
+  --font-label-md: var(--font-hanken);
+  --font-label-sm: var(--font-hanken);
+  --font-code-metric: var(--font-hanken);
   --font-sans: var(--font-hanken);
   --radius: 2px;
   --radius-sm: 2px;
   --radius-md: 4px;
   --radius-lg: 4px;
   --radius-xl: 8px;
+  --radius-2xl: 16px;
   --radius-full: 12px;
   --spacing-gutter: 1.5rem;
   --spacing-gutter-mobile: 1rem;
@@ -74,12 +88,15 @@
   --text-display: 44px;
   --text-display--line-height: 52px;
   --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 700;
   --text-display-mobile: 32px;
   --text-display-mobile--line-height: 40px;
   --text-display-mobile--letter-spacing: -0.01em;
+  --text-display-mobile--font-weight: 700;
   --text-headline-lg: 32px;
   --text-headline-lg--line-height: 40px;
   --text-headline-lg--letter-spacing: -0.015em;
+  --text-headline-lg--font-weight: 600;
   --text-headline-lg-mobile: 26px;
   --text-headline-lg-mobile--line-height: 34px;
   --text-headline-lg-mobile--letter-spacing: -0.01em;
@@ -89,8 +106,10 @@
   --text-headline-sm--line-height: 28px;
   --text-price-hero: 28px;
   --text-price-hero--line-height: 36px;
+  --text-price-hero--font-weight: 700;
   --text-price-card: 20px;
   --text-price-card--line-height: 26px;
+  --text-price-card--font-weight: 700;
   --text-body-lg: 18px;
   --text-body-lg--line-height: 28px;
   --text-body-md: 15px;
@@ -104,7 +123,9 @@
   --text-code-metric: 13px;
   --text-code-metric--line-height: 16px;
   --text-code-metric--letter-spacing: 0.03em;
+  --text-code-metric--font-weight: 500;
 }
+
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -113,7 +134,7 @@ h1, h2, h3, .display { font-family: var(--font-outfit), sans-serif; }
 button, input { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; text-decoration: none; }
-button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #136a6350; outline-offset: 3px; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid #136a6326; outline-offset: 2px; }
 .container-page { width: min(1320px, calc(100% - 48px)); margin-inline: auto; }
 .icon { display: inline-grid; place-items: center; width: 22px; height: 22px; }
 .skeleton { background: linear-gradient(90deg, #e8eff4 25%, #f7fafc 50%, #e8eff4 75%); background-size: 200% 100%; animation: shimmer 1.35s infinite; }

@@ -1,0 +1,47 @@
+import Link from "next/link";
+import { Categoria, Producto, formatCop } from "@/lib/contracts";
+import { allowedImageUrl } from "@/lib/image-url";
+import Icon from "@/components/icon";
+import AddToCart from "@/components/add-to-cart";
+import ProductCard from "@/components/storefront/product-card";
+import { homeBenefits, homeCopy } from "@/content/home";
+
+export function Hero({ product }: { product?: Producto }) {
+  const image = allowedImageUrl(product?.imagenUrl);
+  return <section className="relative overflow-hidden border-b border-outline-variant/40 bg-surface-container-low py-12 lg:py-20">
+    <div className="mx-auto max-w-7xl px-margin-mobile md:px-margin"><div className="grid grid-cols-1 items-center gap-space-xl lg:grid-cols-12">
+      <div className="space-y-6 lg:col-span-7">
+        <div className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/10 px-3 py-1"><span className="h-2 w-2 animate-pulse rounded-full bg-secondary"/><span className="text-label-sm font-bold uppercase tracking-wider text-secondary">{homeCopy.badge}</span></div>
+        <h1 className="font-display text-display-mobile font-bold leading-tight tracking-tight text-on-surface md:text-display">Tecnología que <br className="hidden sm:inline"/><span className="underline decoration-4 decoration-primary-container/40 underline-offset-8 text-secondary">mejora tu día</span></h1>
+        <p className="max-w-2xl text-body-lg text-on-surface-variant">{homeCopy.heroSubtitle}</p>
+        <div className="flex flex-wrap items-center gap-space-md pt-2"><Link href="/catalogo" className="flex items-center gap-2 rounded-lg bg-primary px-8 py-3.5 text-label-md font-bold text-on-primary shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-primary-container hover:shadow-md"><span>Explorar productos</span><Icon name="shopping_bag" className="h-[18px] w-[18px]"/></Link><Link href="/catalogo" className="rounded-lg border border-outline-variant bg-surface-container-lowest px-6 py-3.5 text-label-md font-semibold text-on-surface transition-all hover:bg-surface-container">Ver catálogo</Link></div>
+        <div className="grid grid-cols-2 gap-4 border-t border-outline-variant/50 pt-6 sm:grid-cols-3">{homeCopy.heroBenefits.map((benefit) => <div key={benefit.title} className={`flex items-center gap-3 ${benefit.title === "Soporte local" ? "col-span-2 sm:col-span-1" : ""}`}><div className="flex h-10 w-10 items-center justify-center rounded-lg border border-outline-variant bg-surface-container-lowest text-secondary"><Icon name={benefit.icon}/></div><div><p className="text-label-sm font-bold text-on-surface">{benefit.title}</p><p className="text-[12px] text-on-surface-variant">{benefit.description}</p></div></div>)}</div>
+      </div>
+      <div className="relative lg:col-span-5">{product && image ? <article className="relative overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-xl"><div aria-hidden="true" className="absolute -right-8 -top-8 z-0 h-44 w-44 rounded-full bg-secondary-fixed/30 blur-3xl"/><div className="relative z-10 flex flex-col items-center"><div className="mb-4 flex w-full items-center justify-between gap-3"><span className="rounded-full bg-secondary/10 px-3 py-1 text-label-sm font-bold text-secondary">Producto destacado</span><span className="font-display text-price-card font-bold text-primary">{formatCop(product.precio)}</span></div><Link href={`/producto/${product.id}`} aria-label={`Ver ${product.nombre}`} className="group relative my-2 flex h-64 w-full items-center justify-center overflow-hidden rounded-xl bg-surface-container-low"><img src={image} alt={product.nombre} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"/></Link><div className="mt-4 w-full space-y-2"><h2 className="font-headline-sm text-headline-sm font-bold text-on-surface">{product.nombre}</h2>{product.descripcion && <p className="text-body-sm text-on-surface-variant">{product.descripcion}</p>}</div><AddToCart productId={product.id} disabled={product.stockDisponible <= 0} autoHeight className="mt-5 w-full justify-center rounded-lg py-3 text-label-md font-bold shadow" label="Añadir al carrito" icon="add_shopping_cart"/></div></article> : <div className="grid min-h-80 place-items-center rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 text-center shadow-xl"><div><Icon name="box" className="mx-auto h-14 w-14 text-outline"/><p className="mt-3 text-body-sm text-on-surface-variant">Explora los productos disponibles en el catálogo.</p></div></div>}</div>
+    </div></div>
+  </section>;
+}
+
+function categoryIcon(category: Categoria) {
+  const key = `${category.nombre} ${category.slug}`.toLowerCase();
+  if (/comput|pc|laptop|portatil/.test(key)) return "laptop_chromebook" as const;
+  if (/celular|smartphone|tablet/.test(key)) return "smartphone" as const;
+  if (/audio|sonido|audif/.test(key)) return "headphones" as const;
+  if (/gaming|juego/.test(key)) return "sports_esports" as const;
+  if (/accesor|cable|cargador/.test(key)) return "hub" as const;
+  return "category" as const;
+}
+
+export function CategoryGrid({ categories }: { categories: Categoria[] }) {
+  return <section className="mx-auto max-w-7xl px-margin-mobile py-16 md:px-margin" id="categorias"><div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end"><div><span className="text-label-sm font-bold uppercase tracking-wider text-secondary">Catálogo Especializado</span><h2 className="mt-1 font-headline-lg text-headline-lg-mobile font-bold text-on-surface md:text-headline-lg">Compra por categoría</h2></div><Link className="inline-flex items-center gap-1 font-semibold text-secondary hover:underline" href="/catalogo"><span>Ver todas las categorías</span><Icon name="arrow_forward" className="h-[18px] w-[18px]"/></Link></div>
+    {categories.length ? <div className="grid grid-cols-1 gap-space-md sm:grid-cols-2 lg:grid-cols-5">{categories.map((category) => <Link key={category.id} href={`/catalogo?categoriaId=${category.id}`} className="group flex flex-col justify-between rounded-xl border border-outline-variant bg-surface-container-lowest p-5 transition-all duration-200 hover:-translate-y-1 hover:border-secondary hover:shadow-lg"><div className="space-y-4"><div className="flex h-12 w-12 items-center justify-center rounded-lg bg-surface-container text-secondary transition-colors group-hover:bg-secondary group-hover:text-on-secondary"><Icon name={categoryIcon(category)} className="h-6 w-6"/></div><div><h3 className="font-headline-sm text-headline-sm font-bold text-on-surface transition-colors group-hover:text-secondary">{category.nombre}</h3></div></div><div className="mt-4 flex items-center justify-between border-t border-outline-variant/40 pt-4 text-label-sm font-semibold text-secondary"><span>Ver productos</span><Icon name="chevron_right" className="h-4 w-4 transition-transform group-hover:translate-x-1"/></div></Link>)}</div> : <p className="rounded-lg border border-dashed border-outline-variant bg-surface-container-lowest p-6 text-body-sm text-on-surface-variant">Las categorías aparecerán aquí cuando estén disponibles.</p>}
+  </section>;
+}
+
+export function FeaturedProducts({ products, error }: { products: Producto[]; error?: string }) {
+  return <section className="border-y border-outline-variant/40 bg-surface-container-low py-16" id="catalogo"><div className="mx-auto max-w-7xl px-margin-mobile md:px-margin"><div className="mb-8 flex items-center justify-between"><div><span className="text-label-sm font-bold uppercase tracking-wider text-secondary">Selección TechStore</span><h2 className="font-headline-lg text-headline-lg-mobile font-bold text-on-surface md:text-headline-lg">Productos destacados</h2></div><Link href="/catalogo" className="hidden items-center gap-2 text-label-md font-semibold text-secondary hover:underline sm:inline-flex">Ver catálogo<Icon name="arrow_forward" className="h-[18px] w-[18px]"/></Link></div>{error ? <div role="status" className="rounded-lg border border-outline-variant bg-surface-container-lowest p-6 text-body-sm text-on-surface-variant">{error}</div> : products.length ? <div className="grid grid-cols-1 gap-space-lg sm:grid-cols-2 lg:grid-cols-4">{products.slice(0, 4).map((product) => <ProductCard key={product.id} product={product}/>)}</div> : <p className="rounded-lg border border-dashed border-outline-variant bg-surface-container-lowest p-6 text-body-sm text-on-surface-variant">Todavía no hay productos disponibles para mostrar.</p>}</div></section>;
+}
+
+export function TrustStrip() {
+  return <section className="border-t border-outline-variant/40 bg-surface-container-lowest py-12"><div className="mx-auto max-w-7xl px-margin-mobile md:px-margin"><div className="grid grid-cols-1 gap-space-lg md:grid-cols-3">{homeBenefits.map((benefit) => <article key={benefit.title} className="flex items-start gap-4 rounded-xl border border-outline-variant/40 bg-surface-container-low/60 p-4"><div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-secondary/10 text-secondary"><Icon name={benefit.icon} className="h-6 w-6"/></div><div className="space-y-1"><h3 className="font-headline-sm text-headline-sm font-bold text-on-surface">{benefit.title}</h3><p className="text-body-sm text-on-surface-variant">{benefit.description}</p></div></article>)}</div></div></section>;
+}
