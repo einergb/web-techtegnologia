@@ -12,7 +12,7 @@ services:
       - .env
     environment:
       API_BASE_URL: ${API_BASE_URL:-http://tienda-api:8080}
-      SITE_URL: ${SITE_URL:-http://localhost:3000}
+      SITE_URL: ${SITE_URL:?Defina SITE_URL en el archivo .env}
       PROXY_MAX_BODY_BYTES: ${PROXY_MAX_BODY_BYTES:-8388608}
     networks:
       - homelab_net

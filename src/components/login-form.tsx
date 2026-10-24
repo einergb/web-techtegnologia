@@ -1,13 +1,14 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type FieldErrors = Record<string, string>;
 type LoginResult = { detail?: string; errores?: FieldErrors; nombre?: string; rol?: string };
 
 export default function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [pending, setPending] = useState(false);
@@ -38,7 +39,15 @@ export default function LoginForm() {
         setFieldErrors(result.errores || {});
         return;
       }
-      router.push(result.rol === "ADMIN" ? "/admin" : "/carrito");
+      const requestedPath = searchParams.get("returnUrl");
+      let safeReturnPath: string | null = null;
+      if (requestedPath?.startsWith("/")) {
+        try {
+          const candidate = new URL(requestedPath, window.location.origin);
+          if (candidate.origin === window.location.origin) safeReturnPath = `${candidate.pathname}${candidate.search}${candidate.hash}`;
+        } catch { /* Ignore malformed return paths and use the normal role redirect. */ }
+      }
+      router.push(safeReturnPath || (result.rol === "ADMIN" ? "/admin" : "/carrito"));
       router.refresh();
     } catch {
       setError("No pudimos conectar con TechStore. Intenta de nuevo más tarde.");

@@ -66,3 +66,29 @@ Los cambios de este archivo describen la implementación presente en el reposito
 ### Verificación
 
 - No se pudo ejecutar lint ni build en esta sesión: `node`, `npm` y `docker` no están disponibles en el entorno.
+
+## [0.5.0] - 2026-10-24
+
+### Actualizado
+
+- Se alinearon tokens de color, tipografía, espaciado y radios con la configuración HTML de Stitch (paleta A); se empaquetan Outfit y Hanken Grotesk con `next/font` y se quitaron las solicitudes de Google Fonts en tiempo de ejecución.
+- Se rediseñaron encabezado, footer, inicio, catálogo, detalle de producto, carrito, pasos de checkout y retorno de pago para escritorio y móvil.
+- El inicio, catálogo y detalle usan productos/categorías de la API; las imágenes se muestran únicamente desde HTTPS y hosts permitidos, y se conserva el `imagenUrl` recibido.
+- Se retiraron elementos visuales sin respaldo (badges promocionales, reseñas y ofertas); los indicadores administrativos siguen mostrando datos de reportes de la API. La página de detalle agrega productos relacionados del endpoint de catálogo.
+- El encabezado consulta carrito y autorización administrativa a través del proxy; el sidebar de administración enlaza solo a las secciones de reportes conectadas.
+- El panel dibuja la serie diaria cuando existe; si la API no entrega datos diarios, muestra una tabla vacía con ese estado en lugar de inventar valores.
+- Los precios se presentan como `$ 189.900 COP` con agrupación `es-CO`. El CTA de carrito conserva el retorno al producto al iniciar sesión.
+- Los textos de beneficios de la portada viven en `src/lib/store-content.ts` y requieren aprobación del propietario.
+
+### Pendientes de datos o contrato
+
+- El DTO documentado del producto no garantiza `marca` ni `descripcion`; se muestran solo cuando existen. El contrato de reseñas no está documentado y la petición directa a la API devolvió 403, por eso se omitió el bloque de valoraciones.
+- El catálogo conserva búsqueda por texto, categoría y paginación; filtros adicionales y ordenamiento no aparecen en el contrato consultado.
+- No se habilitaron CRUD de productos, gestión de pedidos, despachos ni cupones en el panel; aunque existen algunos endpoints backend, no están expuestos por la allowlist del proxy actual.
+- No se confirmó en vivo el DTO de configuración ni contenido de productos porque la API pública devolvió 403.
+
+### Verificación
+
+- `git diff --check` pasó y la búsqueda en `src` no encontró `href="#"`, llamadas a Google Fonts, `googleusercontent`, la paleta B, “Ofertas” ni `⌘K`.
+- Se intentaron `npm run typecheck`, `npm run lint`, `npm test` y `API_BASE_URL=http://127.0.0.1:1 npm run build`; todos terminaron con código 127 porque `npm` no está disponible (`npm: command not found`). Tampoco se encontró `node`, navegador ni Playwright, así que no hubo capturas ni pruebas de estilos computados.
+- Se preservó el cambio previo de `docker-compose.yml`; no se crearon commits.

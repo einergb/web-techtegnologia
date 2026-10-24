@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
+import { Hanken_Grotesk, Outfit } from "next/font/google";
 import SiteHeader from "@/components/site-header";
+import SiteFooter from "@/components/site-footer";
+import { apiGet } from "@/lib/api";
 import "./globals.css";
+
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
+const hanken = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-hanken", display: "swap" });
 
 export const dynamic = "force-dynamic";
 
@@ -11,9 +17,15 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const storePromise = apiGet<{ nombre?: string; envioGratisDesde?: number }>("/api/catalogo/tienda").catch(() => null);
+  return <LayoutContent storePromise={storePromise}>{children}</LayoutContent>;
+}
+
+async function LayoutContent({ children, storePromise }: { children: React.ReactNode; storePromise: Promise<{ nombre?: string; envioGratisDesde?: number } | null> }) {
+  const store = await storePromise;
   return (
     <html lang="es-CO">
-      <body><SiteHeader/>{children}</body>
+      <body className={`${outfit.variable} ${hanken.variable}`}><SiteHeader store={store}/>{children}<SiteFooter storeName={store?.nombre}/></body>
     </html>
   );
 }

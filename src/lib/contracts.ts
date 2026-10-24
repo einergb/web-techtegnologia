@@ -1,7 +1,7 @@
 export type Categoria = { id: number; nombre: string; slug: string; categoriaPadreId?: number | null };
 export type ImagenProducto = { id: number; url: string; orden: number; esPrincipal: boolean };
 export type Producto = {
-  id: number; sku: string; nombre: string; slug: string; descripcion: string; precio: number;
+  id: number; sku: string; nombre: string; slug: string; descripcion?: string; precio: number;
   categoriaId: number; categoria: string; marcaId?: number; marca?: string; garantiaMeses: number;
   stockDisponible: number; activo: boolean; imagenes: ImagenProducto[]; atributos: Record<string, string>; imagenUrl: string;
 };
@@ -14,4 +14,4 @@ export type ValidacionCupon = { id: number; codigo: string; tipo: string; valor:
 export type InventarioReporte = { productos: number; unidades: number; valorInventario: number; bajoUmbral: Array<{ productoId: number; sku: string; nombre: string; stock: number; stockReservado: number; stockMinimo: number }> };
 export type VentasReporte = { desde: string; hasta: string; pedidos: number; pedidosPagados: number; ingresos: number; ticketPromedio: number; porEstado: Record<string, number>; topProductos: Array<{ productoId: number; nombre: string; unidades: number; ingresos: number }>; ventasPorDia: Array<{ dia: string; pedidos: number; ingresos: number }> };
 
-export const formatCop = (amount: number) => new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(amount);
+export const formatCop = (amount: number) => `$ ${new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0 }).format(amount)} COP`;

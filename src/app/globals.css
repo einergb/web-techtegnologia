@@ -1,20 +1,115 @@
-@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
-:root {
-  --background: #f4faff;
-  --foreground: #161d20;
-  --primary: #a83128;
-  --secondary: #136a63;
-  --muted: #647174;
-  --line: #e0e8ed;
-  --surface: #ffffff;
+@theme {
+  --color-primary: #a83128;
+  --color-primary-container: #c9493d;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #fffbff;
+  --color-inverse-primary: #ffb4aa;
+  --color-secondary: #136a63;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #a2eee4;
+  --color-on-secondary-container: #1b6e67;
+  --color-tertiary: #785600;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #976d00;
+  --color-on-tertiary-container: #fffbff;
+  --color-surface: #f4faff;
+  --color-surface-dim: #d4dbe0;
+  --color-surface-bright: #f4faff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eef4fa;
+  --color-surface-container-high: #e2e9ee;
+  --color-surface-container-highest: #dce3e9;
+  --color-surface-lowest: #ffffff;
+  --color-surface-low: #eef4fa;
+  --color-surface-container: #e8eff4;
+  --color-surface-high: #e2e9ee;
+  --color-surface-highest: #dce3e9;
+  --color-on-surface: #161d20;
+  --color-on-surface-variant: #58413e;
+  --color-outline: #8c716d;
+  --color-outline-variant: #e0bfbb;
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #93000a;
+  --color-inverse-surface: #2a3136;
+  --color-inverse-on-surface: #ebf2f7;
+  --color-surface-tint: #ab342a;
+  --color-primary-fixed: #ffdad5;
+  --color-primary-fixed-dim: #ffb4aa;
+  --color-on-primary-fixed: #410001;
+  --color-on-primary-fixed-variant: #8a1b15;
+  --color-secondary-fixed: #a5f0e7;
+  --color-secondary-fixed-dim: #89d4cb;
+  --color-on-secondary-fixed: #00201d;
+  --color-on-secondary-fixed-variant: #00504a;
+  --color-tertiary-fixed: #ffdea5;
+  --color-tertiary-fixed-dim: #f3be53;
+  --color-on-tertiary-fixed: #261900;
+  --color-on-tertiary-fixed-variant: #5d4200;
+  --color-background: #f4faff;
+  --color-on-background: #161d20;
+  --color-surface-variant: #dce3e9;
+  --font-display: var(--font-outfit);
+  --font-headline: var(--font-outfit);
+  --font-body: var(--font-hanken);
+  --font-sans: var(--font-hanken);
+  --radius: 2px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 8px;
+  --radius-full: 12px;
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-mobile: 1rem;
+  --spacing-margin: 2rem;
+  --spacing-margin-mobile: 1rem;
+  --spacing-space-xs: .25rem;
+  --spacing-space-sm: .5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+  --text-display: 44px;
+  --text-display--line-height: 52px;
+  --text-display--letter-spacing: -0.02em;
+  --text-display-mobile: 32px;
+  --text-display-mobile--line-height: 40px;
+  --text-display-mobile--letter-spacing: -0.01em;
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 40px;
+  --text-headline-lg--letter-spacing: -0.015em;
+  --text-headline-lg-mobile: 26px;
+  --text-headline-lg-mobile--line-height: 34px;
+  --text-headline-lg-mobile--letter-spacing: -0.01em;
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-headline-sm: 20px;
+  --text-headline-sm--line-height: 28px;
+  --text-price-hero: 28px;
+  --text-price-hero--line-height: 36px;
+  --text-price-card: 20px;
+  --text-price-card--line-height: 26px;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-md: 15px;
+  --text-body-md--line-height: 22px;
+  --text-body-sm: 13px;
+  --text-body-sm--line-height: 18px;
+  --text-label-md: 14px;
+  --text-label-md--line-height: 20px;
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 16px;
+  --text-code-metric: 13px;
+  --text-code-metric--line-height: 16px;
+  --text-code-metric--letter-spacing: 0.03em;
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; color: var(--foreground); background: var(--background); font-family: "Hanken Grotesk", sans-serif; }
-h1, h2, h3, .display { font-family: "Outfit", sans-serif; }
+body { margin: 0; color: #161d20; background: #f4faff; font-family: var(--font-hanken), sans-serif; }
+h1, h2, h3, .display { font-family: var(--font-outfit), sans-serif; }
 button, input { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; text-decoration: none; }
